@@ -8,6 +8,9 @@ jobs:
     run:
         runs-on: ubuntu-latest
         steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4      # THIS WAS MISSING
+
         - uses: opentofu/setup-opentofu@v1.0.4
         
         - name: OpenTofu Init
