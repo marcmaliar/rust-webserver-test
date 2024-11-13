@@ -1,11 +1,24 @@
-- name: OpenTofu - Setup Tofu
-  uses: opentofu/setup-opentofu@v1.0.4
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-- run: tofu init
-
-- id: plan
-  run: tofu plan -no-color
-
-- run: echo ${{ steps.plan.outputs.stdout }}
-- run: echo ${{ steps.plan.outputs.stderr }}
-- run: echo ${{ steps.plan.outputs.exitcode }}
+jobs:
+    run:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: opentofu/setup-opentofu@v1.0.4
+        
+        - name: OpenTofu Init
+          run: tofu init
+            
+        - name: OpenTofu Plan
+          id: plan
+          run: tofu plan -no-color
+            
+        - name: Echo Plan Output
+          run: |
+            echo "${{ steps.plan.outputs.stdout }}"
+            echo "${{ steps.plan.outputs.stderr }}"
+            echo "${{ steps.plan.outputs.exitcode }}"
