@@ -17,16 +17,11 @@ jobs:
         - name: OpenTofu Init
           run: tofu init
             
-        - name: OpenTofu Plan
-          id: plan
+        - name: OpenTofu Apply
+          id: apply
           env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_REGION: "us-east-2"
-          run: tofu plan -no-color
+          run: tofu apply -no-color -auto-approve
             
-        - name: Echo Plan Output
-          run: |
-            echo "${{ steps.plan.outputs.stdout }}"
-            echo "${{ steps.plan.outputs.stderr }}"
-            echo "${{ steps.plan.outputs.exitcode }}"
