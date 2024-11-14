@@ -10,7 +10,16 @@ jobs:
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4      # THIS WAS MISSING
-
+        
+        - name: Set env
+          run: echo "AWS_ACCESS_KEY_ID=$(echo $AWS_ACCESS_KEY_ID | cut -c 1-6)" >> $AWS_ACCESS_KEY_ID
+        
+        - name: Set env2
+          run: echo "AWS_SECRET_ACCESS_KEY=$(echo $AWS_SECRET_ACCESS_KEY | cut -c 1-6)" >> $AWS_SECRET_ACCESS_KEY
+        
+        - name: Set env3
+          run: echo "us-east-1" >> $AWS_REGION
+        
         - uses: opentofu/setup-opentofu@v1.0.4
         
         - name: OpenTofu Init
