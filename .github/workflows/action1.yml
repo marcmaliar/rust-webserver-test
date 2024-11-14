@@ -18,13 +18,13 @@ jobs:
             
         - name: OpenTofu Plan
           id: plan
-          run: tofu plan -no-color
-            
-        - name: Echo Plan Output
           env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_REGION: "us-east-2"
+          run: tofu plan -no-color
+            
+        - name: Echo Plan Output
           run: |
             echo "${{ steps.plan.outputs.stdout }}"
             echo "${{ steps.plan.outputs.stderr }}"
